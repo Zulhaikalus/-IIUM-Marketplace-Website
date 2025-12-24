@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="ProductBrowsing.css">
+    </head>
+
+    <body>
+        <header id="Navigation">
+            <nav class="navbar" id="myTopnav">
+                <ul>
+                    <li><img id="picture" src="Image/UserPicture.jpeg" alt="Profile Picture"></li>
+                    <li><input type="text" id="search-bar" placeholder="search..."></li>
+                    <li>|</li>
+                    <li><a href="Homepage.html" class="active">Home</a></li>
+                    <li>|</li>
+                    <li><a href="About.html">About</a></li>
+                    <li>|</li>
+                    <li><a href="Shop.html">Shop</a></li>
+                    <li>|</li>
+                    <li><a href="Help.html">Help</a></li>
+                    <li>|</li>
+                    <li><a id="Sellproduct" href="Sell.html">&#x1F4B8; Sell Product</a></li>
+                    <li class="icon">
+                        <a href="javascript:void(0);" onclick="toggleNavbar()">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+                </ul>
+                <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
+            </nav>
+        </header>
+        <main>
+            <center>
+                <h1 style="color: rgb(162, 188, 136);font-family: 'Salsa', cursive;font-size: 30px; margin-top: 100px; ">Marketplace for all IIUM Students</h1>
+                <p style="font-size: 30px; color: rgb(230, 160, 47); margin-top: -50px;">________________________________</p>
+            </center>
+            <div class="search-container">
+                <input type="text" placeholder="Search for products..." class="search-input">
+                <button class="search-button">Search</button>
+            </div>
+            <center>
+                <h1 style="margin-top: 50px; color: rgb(162, 188, 136);">Featured Categories</h1>
+                <p>These are the trending categories of the products offered by IIUM students</p>
+            </center>
+            <div class="Category">
+                <div class="item">
+                    <img src="Image/Clothes.jpeg" class="Cat">
+                    <p>Clothes</p>
+                </div>
+                <div class="item">
+                    <img src="Image/Electronics.jpg" class="Cat">
+                    <p>Electronics</p>
+                </div>
+                <div class="item">
+                    <img src="Image/Fast Food.jpeg" class="Cat">
+                    <p>Food</p>
+                </div>
+                <div class="item">
+                    <img src="Image/Services.jpeg" class="Cat">
+                    <p>Services</p>
+                </div>
+            </div
+        </main>
+        <script>
+        function filterItems() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const items = document.querySelectorAll('.item');
+            
+            items.forEach(item => {
+                if (item.textContent.toLowerCase().includes(input)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        </script>
+    </body>
+</html>
