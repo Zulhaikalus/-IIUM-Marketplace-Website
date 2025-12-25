@@ -1,79 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="ProductBrowsing.css">
-    </head>
 
-    <body>
-        <header id="Navigation">
-            <nav class="navbar" id="myTopnav">
-                <ul>
-                    <li><img id="picture" src="Image/UserPicture.jpeg" alt="Profile Picture"></li>
-                    <li><input type="text" id="search-bar" placeholder="search..."></li>
-                    <li>|</li>
-                    <li><a href="Homepage.html" class="active">Home</a></li>
-                    <li>|</li>
-                    <li><a href="About.html">About</a></li>
-                    <li>|</li>
-                    <li><a href="Shop.html">Shop</a></li>
-                    <li>|</li>
-                    <li><a href="Help.html">Help</a></li>
-                    <li>|</li>
-                    <li><a id="Sellproduct" href="Sell.html">&#x1F4B8; Sell Product</a></li>
-                    <li class="icon">
-                        <a href="javascript:void(0);" onclick="toggleNavbar()">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
-                </ul>
-                <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
-            </nav>
-        </header>
-        <main>
-            <center>
-                <h1 style="color: rgb(162, 188, 136);font-family: 'Salsa', cursive;font-size: 30px; margin-top: 100px; ">Marketplace for all IIUM Students</h1>
-                <p style="font-size: 30px; color: rgb(230, 160, 47); margin-top: -50px;">________________________________</p>
-            </center>
-            <div class="search-container">
-                <input type="text" placeholder="Search for products..." class="search-input">
-                <button class="search-button">Search</button>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Salsa&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+</head>
+<style>
+    #Navigation {
+        position: sticky;
+        top: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('images/BGimage.jpeg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 2px solid grey;
+        background-color: rgb(255, 253, 253);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: px 15px;
+    }
+
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .navbar li {
+        margin: 0 10px;
+        color: rgb(230, 160, 47);
+    }
+
+    .navbar a {
+        color: rgb(230, 160, 47);
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        text-align: center;
+    }
+
+    .navbar a:hover {
+        background-color: rgb(215, 215, 215);
+        border-radius: 10px;
+        color: black;
+    }
+
+    .navbar .icon {
+        display: none;
+    }
+
+    #picture {
+        border-radius: 50%;
+        border: 3px solid rgb(230, 160, 47);
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    #search-bar {
+        flex-grow: 1;
+        padding: 10px;
+        margin: 15px;
+        border-radius: 20px;
+        border: 1px solid rgb(230, 160, 47);
+        max-width: 300px;
+    }
+
+    #title {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        color: rgb(230, 160, 47);
+        margin-left: auto;
+        font-size: 1.5rem;
+        margin-right: 15px;
+    }
+
+    #Sellproduct {
+        color: rgb(253, 250, 250);
+        background-color: rgb(247, 66, 66);
+        border-radius: 10px;
+        opacity: 80%;
+    }
+
+    #Sellproduct:hover {
+        background-color: rgb(249, 0, 0);
+    }
+
+    @media screen and (max-width: 600px) {
+        .navbar ul {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .navbar li {
+            display: none;
+        }
+
+        .navbar li.icon {
+            display: block;
+        }
+
+        .navbar.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0px;
+        }
+
+        .navbar.responsive ul {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .navbar.responsive li {
+            display: block;
+            width: 100%;
+        }
+
+        .navbar.responsive #search-bar {
+            margin: 10px 0;
+            width: 100%;
+            max-width: none;
+        }
+
+        .navbar.responsive #title {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .navbar.responsive a {
+            text-align: left;
+            padding: 14px;
+        }
+    }
+
+    .ui-autocomplete {
+        background-color: white;
+        border: 1px solid #ddd;
+        font-family: 'Salsa', cursive;
+        font-size: 16px;
+        max-height: 200px;
+        overflow-y: auto;
+        width: 300px;
+    }
+
+    .ui-menu-item {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    .ui-menu-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .ui-state-focus {
+        background-color: #ddd !important;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .search-input {
+        width: 300px;
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
+    }
+
+    .search-input:focus {
+        border-color: #ffa500;
+    }
+
+    .search-button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #ffa500;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
+    }
+
+    .search-button:hover {
+        background-color: #e69500;
+    }
+
+    .Category {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .item {
+        margin: 15px;
+        text-align: center;
+    }
+
+    .Cat {
+        border: 3px solid rgb(230, 160, 47);
+        border-radius: 10px;
+        width: 200px;
+        height: 170px;
+        object-fit: cover;
+        box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
+    }
+</style>
+
+<body>
+    <header id="Navigation">
+        <nav class="navbar" id="myTopnav">
+            <ul>
+                <li><img id="picture" src="images/images.jpeg" alt="Profile Picture"></li>
+                <li>
+                    <form action="productlist.html" method="get"><input name="query" placeholder="search..." for="tags"
+                            type="text" id="search-bar" placeholder="search..."></form>
+                </li>
+                <li>|</li>
+                <li><a href="Homepage.html" class="active">Home</a></li>
+                <li>|</li>
+                <li><a href="About.html">About</a></li>
+                <li>|</li>
+                <li><a href="ProductBrowsing.html">Shop</a></li>
+                <li>|</li>
+                <li><a href="help.html">Help</a></li>
+                <li>|</li>
+                <li><a href="chatbot.html">AI Chatbot</a></li>
+                <li>|</li>
+                <li><a id="Sellproduct" href="sellproduct.html">&#x1F4B8; Sell Product</a></li>
+                <li class="icon">
+                    <a href="javascript:void(0);" onclick="toggleNavbar()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
+        </nav>
+    </header>
+    <main>
+        <center>
+            <h1 style="color: rgb(116, 165, 68);font-family: 'Salsa', cursive;font-size: 30px; margin-top: 100px; ">
+                Marketplace for all IIUM Students</h1>
+            <p style="font-size: 30px; color: rgb(230, 160, 47); margin-top: -50px;">________________________________
+            </p>
+        </center>
+        <div class="search-container">
+            <form action="productlist.html" method="get">
+                <input type="text" class="search-input" name="query" placeholder="search..." for="tags">
+                <datalist id="suggestions">
+                </datalist>
+                <button class="search-button" type="submit">Search</button>
+            </form>
+        </div>
+        <center>
+            <h1 style="margin-top: 50px; color: rgb(116, 165, 68);">Featured Categories</h1>
+            <p>These are the trending categories of the products offered by IIUM students</p>
+        </center>
+        <div class="Category">
+            <div class="item">
+                <img src="images/Clothes.jpeg" class="Cat">
+                <p style="font-size: large; background-color:#e69500; padding: 5px; border-radius: 5px;">Clothes</p>
             </div>
-            <center>
-                <h1 style="margin-top: 50px; color: rgb(162, 188, 136);">Featured Categories</h1>
-                <p>These are the trending categories of the products offered by IIUM students</p>
-            </center>
-            <div class="Category">
-                <div class="item">
-                    <img src="Image/Clothes.jpeg" class="Cat">
-                    <p>Clothes</p>
-                </div>
-                <div class="item">
-                    <img src="Image/Electronics.jpg" class="Cat">
-                    <p>Electronics</p>
-                </div>
-                <div class="item">
-                    <img src="Image/Fast Food.jpeg" class="Cat">
-                    <p>Food</p>
-                </div>
-                <div class="item">
-                    <img src="Image/Services.jpeg" class="Cat">
-                    <p>Services</p>
-                </div>
-            </div
-        </main>
-        <script>
-        function filterItems() {
-            const input = document.getElementById('search-input').value.toLowerCase();
-            const items = document.querySelectorAll('.item');
-            
-            items.forEach(item => {
-                if (item.textContent.toLowerCase().includes(input)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
+            <div class="item">
+                <img src="images/Electronics.jpg" class="Cat">
+                <p style="font-size: large; background-color:#e69500; padding: 5px; border-radius: 5px;">Electronics</p>
+            </div>
+            <div class="item">
+                <img src="images/Fast Food.jpeg" class="Cat">
+                <p style="font-size: large; background-color:#e69500; padding: 5px; border-radius: 5px;">Food</p>
+            </div>
+            <div class="item">
+                <img src="images/Services.jpeg" class="Cat">
+                <p style="font-size: large; background-color:#e69500; padding: 5px; border-radius: 5px;">Services</p>
+            </div>
+        </div>
+    </main>
+    <script>
+
+        function toggleNavbar() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+
+        const products = [
+            "Laptop", "Shirt", "Phone", "Chocojar", "Iphone 13", "Jacket", "Microphone", "Clothes", "Electronics", "Food", "Services"
+        ];
+
+        function populateSuggestions() {
+            const suggestions = document.getElementById('suggestions');
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product;
+                suggestions.appendChild(option);
             });
         }
-        </script>
-    </body>
+
+        document.addEventListener('DOMContentLoaded', populateSuggestions);
+        $(document).ready(function () {
+
+            $("#search-bar").autocomplete({
+                source: products
+            });
+        });
+        $(document).ready(function () {
+            $(".search-input").autocomplete({
+                source: products
+            });
+        });
+    </script>
+</body>
+
 </html>

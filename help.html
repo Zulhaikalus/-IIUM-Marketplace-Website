@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+            $("#tabs").tabs();
+        });
+
+        $(function () {
+            $("#accordion").accordion();
+        });
+
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+
+    <style type="text/css">
+        body {
+            background-image: url('IIUMbg.jpg');
+        }
+    </style>
+    <style>
+        #Navigation {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid grey;
+            background-color: rgb(255, 253, 253);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: px 15px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar li {
+            margin: 0 10px;
+            color: rgb(230, 160, 47);
+        }
+
+        .navbar a {
+            color: rgb(230, 160, 47);
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        .navbar a:hover {
+            background-color: rgb(215, 215, 215);
+            border-radius: 10px;
+            color: black;
+        }
+
+        .navbar .icon {
+            display: none;
+        }
+
+        #picture {
+            border-radius: 50%;
+            border: 3px solid rgb(230, 160, 47);
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        #search-bar {
+            flex-grow: 1;
+            padding: 10px;
+            margin: 15px;
+            border-radius: 20px;
+            border: 1px solid rgb(230, 160, 47);
+            max-width: 300px;
+        }
+
+        #title {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: rgb(230, 160, 47);
+            margin-left: auto;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        #Sellproduct {
+            color: rgb(253, 250, 250);
+            background-color: rgb(247, 66, 66);
+            border-radius: 10px;
+            opacity: 80%;
+        }
+
+        #Sellproduct:hover {
+            background-color: rgb(249, 0, 0);
+        }
+
+        @media screen and (max-width: 500px) {
+            .navbar ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar li {
+                display: none;
+            }
+
+            .navbar li.icon {
+                display: block;
+            }
+
+            .navbar.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0px;
+            }
+
+            .navbar.responsive ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar.responsive li {
+                display: block;
+                width: 100%;
+            }
+
+            .navbar.responsive #search-bar {
+                margin: 10px 0;
+                width: 100%;
+                max-width: none;
+            }
+
+            .navbar.responsive #title {
+                margin-top: 10px;
+                font-size: 1.2rem;
+                text-align: center;
+                width: 100%;
+            }
+
+            .navbar.responsive a {
+                text-align: left;
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header section starts -->
+    <header id="Navigation">
+        <nav class="navbar" id="myTopnav">
+            <ul>
+                <li><img id="picture" src="images/images.jpeg" alt="Profile Picture"></li>
+                <li>
+                    <form action="productlist.html" method="get"><input name="query" placeholder="search..." for="tags"
+                            type="text" id="search-bar" placeholder="search..."></form>
+                </li>
+                <li>|</li>
+                <li><a href="Homepage.html" class="active">Home</a></li>
+                <li>|</li>
+                <li><a href="About.html">About</a></li>
+                <li>|</li>
+                <li><a href="ProductBrowsing.html">Shop</a></li>
+                <li>|</li>
+                <li><a href="help.html">Help</a></li>
+                <li>|</li>
+                <li><a href="chatbot.html">AI Chatbot</a></li>
+                <li>|</li>
+                <li><a id="Sellproduct" href="sellproduct.html">&#x1F4B8; Sell Product</a></li>
+                <li class="icon">
+                    <a href="javascript:void(0);" onclick="toggleNavbar()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
+        </nav>
+    </header>
+    <!-- header section ends -->
+
+    <!-- help section starts -->
+    <br><br>
+    <section style="display: flex; justify-content: center; align-items: center; ">
+        <div id="tabs" style=" background-color: rgba(245, 245, 245, 0.599); width: 1000px; ">
+            <ul>
+                <li><a href="#tabs-1"
+                        style="background-color: blue; color: white; width: 200px; border-radius: 10px; font-weight: bold;">
+                        How to buy in our website</a></li>
+                <li><a href="#tabs-2"
+                        style="background-color: blue; color: white; width: 200px; border-radius: 10px; font-weight: bold;">
+                        FAQ</a></li>
+                <li><a href="#tabs-3"
+                        style="background-color: red; color: white; width: 200px; border-radius: 10px; font-weight: bold;">
+                        Scam Report</a></li>
+            </ul>
+            <div id="tabs-1">
+                <iframe style="margin: 0 auto; display: block; border-radius: 10px;" width="900px" height="600px"
+                    src="https://www.youtube.com/embed/WJC1N7mYrd0?si=7l4OKFoYSoZ-2T1h" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div id="tabs-2">
+                <div
+                    style="display: grid; place-items: center; background-color: rgba(0, 0, 0, 0.542); color: white; border-radius: 10px;">
+                    <br>
+                    <h1>Ordering</h1>
+
+                    <p style="font-weight: bold;">Q: How can I order</p>
+                    <p style="width: 600px; text-align: center;">A: You can order easily using our online platform. When
+                        you find a product you need, you can add it to cart, login and go through the ordering process.
+                    </p>
+
+                    <p style="font-weight: bold;">Q: Why should I buy online?</p>
+                    <p style="width: 600px; text-align: center;">A: Speeding up the process. By ordering online you will
+                        you will get prices faster and you will be able to go through order confirmation and payment
+                        process much faster. This could save days of your time.</p>
+
+                    <p style="font-weight: bold;"> Q: Can I cancel my order?</p>
+                    <p style="width: 600px; text-align: center;">A: If you want to cancel your order, please do so as
+                        soon as possible. If we have already processed your order, you need to contact the seller.</p>
+
+                    <h1>Account</h1>
+
+                    <p style="font-weight: bold;">Q: How do create an account?</p>
+                    <p style="width: 600px; text-align: center;">A: Go to this profile and click “create a new account”,
+                        then just fill in all the needed information and click “create”. After submitting the form, your
+                        account will be confirmed and you will be notified. </p>
+
+                    <p style="font-weight: bold;">Q: How do I change my personal details or email address?</p>
+                    <p style="width: 600px; text-align: center;">A: You can easily change all your information on your
+                        account. Go to login page and log in, then click “profile” and “edit”. Here you can change all
+                        your contact information.</p>
+
+                    <p style="font-weight: bold;">Q: Security</p>
+                    <p style="width: 600px; text-align: center;">A: Our web store is secured with SSL certificate. This
+                        means the information you input is encrypted and it will not be available for third parties.</p>
+
+                    <br>
+                </div>
+            </div>
+            <div id="tabs-3">
+                <div
+                    style="display: grid; place-items: center; background-color: rgba(0, 0, 0, 0.542); border-radius: 10px;">
+                    <p style="color: whitesmoke; font-size: 20px; font-weight: bold;">If you encounter suspicious online
+                        activities or fall victim to a scam, promptly report it to us</p>
+                    <script>
+                        function validateForm() {
+                            var name = document.getElementById('name').value;
+                            var email = document.getElementById('mail').value;
+                            var date = document.getElementById('datepicker').value;
+                            var message = document.getElementById('msg').value;
+
+                            if (name === '' || email === '' || date === '' || message === '') {
+                                alert('Please enter your Name, Email, Date, and Report before submitting the form.');
+                                return false;
+                            }
+                            return true;
+                        }
+                    </script>
+
+                    <form onsubmit="return validateForm()">
+                        <ul>
+                            <li>
+                                <label for="name" style="color: white; font-size: 20px;">Name:</label><br>
+                                <input type="text" id="name" name="user_name" />
+                            </li><br>
+
+                            <li>
+                                <label for="mail" style="color: white; font-size: 20px;">Email:</label><br>
+                                <input type="email" id="mail" name="user_email" />
+                            </li><br>
+
+                            <li>
+                                <label for="date" style="color: white; font-size: 20px;">Date:</label><br>
+                                <input type="text" id="datepicker">
+                            </li><br>
+
+                            <li>
+                                <label for="msg" style="color: white; font-size: 20px;">Website link and
+                                    Reports:</label><br>
+                                <textarea id="msg" name="user_message" style="width: 500px; height:100px"></textarea>
+                            </li><br>
+
+                            <li class="button" style="display: flex; justify-content: center;">
+                                <button type="submit"
+                                    style="background-color: red; color:white; border: 0; width: 200px; height: 50px; font-size: 20px; border-radius: 5px;">Send
+                                    your report</button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+    </script>
+
+    <!-- help section ends -->
+
+    <!-- footer section starts -->
+
+    <footer style="background-color: grey; color: white;">
+        <p>&copy; Web Philosopher
+            <?php echo date("Y"); ?>
+        </p>
+        <p></p>
+    </footer>
+
+    <!-- footer section starts -->
+
+
+</body>
+
+</html>

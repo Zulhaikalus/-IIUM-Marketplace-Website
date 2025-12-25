@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Salsa&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+</head>
+<style>
+    /* KALAU NAK COPY NAVBAR, START DARI SINI, SAMPAI KAT BAWAH BILE NAMPAK COMMNENT*/
+    #Navigation {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('images/BGimage.jpeg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 2px solid grey;
+        background-color: rgb(255, 253, 253);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 15px;
+    }
+
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .navbar li {
+        margin: 0 10px;
+        color: rgb(230, 160, 47);
+    }
+
+    .navbar a {
+        color: rgb(230, 160, 47);
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        text-align: center;
+    }
+
+    .navbar a:hover {
+        background-color: rgb(215, 215, 215);
+        border-radius: 10px;
+        color: black;
+    }
+
+    .navbar .icon {
+        display: none;
+    }
+
+    #picture {
+        border-radius: 50%;
+        border: 3px solid rgb(230, 160, 47);
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    #search-bar {
+        flex-grow: 1;
+        padding: 10px;
+        margin: 15px;
+        border-radius: 20px;
+        border: 1px solid rgb(230, 160, 47);
+        max-width: 300px;
+    }
+
+    #title {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        color: rgb(230, 160, 47);
+        margin-left: auto;
+        font-size: 1.5rem;
+        margin-right: 15px;
+    }
+
+    #Sellproduct {
+        color: rgb(253, 250, 250);
+        background-color: rgb(247, 66, 66);
+        border-radius: 10px;
+        opacity: 80%;
+    }
+
+    #Sellproduct:hover {
+        background-color: rgb(249, 0, 0);
+    }
+
+    @media screen and (max-width: 600px) {
+        .navbar ul {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .navbar li {
+            display: none;
+        }
+
+        .navbar li.icon {
+            display: block;
+        }
+
+        .navbar.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0px;
+        }
+
+        .navbar.responsive ul {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .navbar.responsive li {
+            display: block;
+            width: 100%;
+        }
+
+        .navbar.responsive #search-bar {
+            margin: 10px 0;
+            width: 100%;
+            max-width: none;
+        }
+
+        .navbar.responsive #title {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .navbar.responsive a {
+            text-align: left;
+            padding: 14px;
+        }
+    }
+
+    .ui-autocomplete {
+        background-color: white;
+        border: 1px solid #ddd;
+        font-family: 'Salsa', cursive;
+        font-size: 16px;
+        max-height: 200px;
+        overflow-y: auto;
+        width: 300px;
+        z-index: 1001;
+    }
+
+    .ui-menu-item {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    .ui-menu-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .ui-state-focus {
+        background-color: #ddd !important;
+    }
+
+    .product-listing .card {
+        width: 18rem;
+        margin: 10px;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: scale-down;
+    }
+
+    /*sAMPAI SINI HABIS NAVBAR*/
+</style>
+
+<body>
+
+    <header id="Navigation">
+        <nav class="navbar" id="myTopnav">
+            <ul>
+                <li><img id="picture" src="images/images.jpeg" alt="Profile Picture"></li>
+                <li>
+                    <form action="productlist.html" method="get"><input name="query" placeholder="search..." for="tags"
+                            type="text" id="search-bar" placeholder="search..."></form>
+                </li>
+                <li>|</li>
+                <li><a href="Homepage.html" class="active">Home</a></li>
+                <li>|</li>
+                <li><a href="About.html">About</a></li>
+                <li>|</li>
+                <li><a href="ProductBrowsing.html">Shop</a></li>
+                <li>|</li>
+                <li><a href="help.html">Help</a></li>
+                <li>|</li>
+                <li><a href="chatbot.html">AI Chatbot</a></li>
+                <li>|</li>
+                <li><a id="Sellproduct" href="sellproduct.html">&#x1F4B8; Sell Product</a></li>
+                <li class="icon">
+                    <a href="javascript:void(0);" onclick="toggleNavbar()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
+        </nav>
+    </header>
+
+    <section class="product-listing"
+        style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; padding: 20px;">
+        <h2 style="width: 100%; text-align: center; margin-bottom: 20px;">Product Listings</h2>
+    </section>
+
+    <script>
+        const products = [ //SEMUA PRODUCT INFO
+            {
+                title: "Laptop Gaming ROG",
+                condition: "Brand New",
+                features: "Gaming laptop with RTX 4090",
+                price: 6000,
+                image: "images/product1.jpeg",
+                category: "Electronics",
+                description: "asus tuf gaming f15 fx506, i5 10300h processor, 8gb ddr4 ram, 500gb nvme, RTX4090 4gb, screen 1080p 144hz, usia laptop 2 tahun, laptop dan charger sahaja, laptop tiada masalah, condition 9/10",
+                fullname: "Aiman Syah",
+                username: "Anonymous seller 1",
+                contact: "+012-3456789",
+                address: "35, Jalan TIB 2/12, Taman Industri Bolton, 68100 Batu Caves, Selangor, Malaysia",
+                email: "SellerEmail@gmail.com"
+            },
+            {
+                title: "Shirt",
+                condition: "Lightly Used",
+                features: "Soft cotton",
+                price: 50,
+                image: "images/product2.jpeg",
+                category: "Clothes",
+                description: "100% Fully Combed Cotton. It's softer, stronger and smoother than regular cotton. Colour: Black, Navy & 2 Tone Gray, Cutting: U.S. Regular Size, Classic Fit",
+                fullname: "Nik Nur Aisyah",
+                username: "Anonymous seller 2",
+                contact: "+012-3456789",
+                address: "6, Jalan P11a5/6, Presint 11, 62300 Putrajaya, Wilayah Persekutuan Putrajaya, Malaysia",
+                email: "SellerEmail@gmail.com"
+            },
+            {
+                title: "Samsung S22",
+                condition: "Lightly used",
+                features: "64gb storage with 4gb ram",
+                price: 30,
+                image: "images/product3.jpeg",
+                category: "Electronics",
+                description: "Samsung s22 ultra 512gb, screen pecah pecah, 7bulan, tapi tak kacau perfomance phone, camera, call, selfie, game, s pen semu okay no problem, Rm1500, boleh nego, area klang selangor",
+                fullname: "Azfar Malek",
+                username: "Anonymous seller 3",
+                contact: "+012-3456789",
+                address: "34, Lorong Sembilang 3, Taman Teluk Pulai, 41100 Klang, Selangor, Malaysia",
+                email: "SellerEmail@gmail.com"
+            },
+            {
+                title: "Chocojar with toppings",
+                condition: "None",
+                features: "400ml chocojar with 4 choices of toppings",
+                price: 12,
+                image: "images/product4.jpeg",
+                category: "food",
+                description: "Coco Rice, Mini Coco Crunch, Coco Ball, Coco Krispy, Rainbow, Starberry, 4 toppings (Marshmellow, kitkat, choc chip, biscoff)",
+                fullname: "Imran Haziq",
+                username: "Anonymous seller 4",
+                contact: "+012-3456789",
+                address: "8, Lorong Merbok 7/3, Taman Bunga Blossom, 70100 Seremban, Negeri Sembilan, Malaysia",
+                email: "SellerEmail@gmail.com"
+            },
+            {
+                title: "Iphone 13",
+                condition: "Brand new",
+                features: "Refurbished with 128gb storage and 12gb ram",
+                price: 1800,
+                image: "images/product5.jpeg",
+                category: "Electronics",
+                description: "Condition 98% Cantik, Battery 85%, Body 9.8 / 10, Personal Use, JB Area Can Meet",
+                fullname: "Zafri Iskandar",
+                username: "Anonymous seller 5",
+                contact: "+012-3456789",
+                address: "44, Jln Bukit Beruang Utama 6, Taman Bukit Beruang Utama, 75450 Ayer Keroh, Melaka, Malaysia",
+                email: "SellerEmail@gmail.com"
+            },
+            {
+                title: "Jacket",
+                condition: "Brand new",
+                features: "Oversize jacket with 3 different patterns",
+                price: 80,
+                image: "images/product6.jpeg",
+                category: "Clothes",
+                description: "*green color, Size-Euro S (pls refer to sizing below), bit oversized but crop-top version, Chest- 116cm, shoulder- 46cm, sleeve- 64cm, length- 66cm",
+                fullname: "Ahmad Haikal",
+                username: "Anonymous seller 6",
+                contact: "+012-3456789",
+                address: "32, Jln TPI 3/5, Taman Pinggiran Indah, 68100 Batu Caves, Selangor, Malaysia",
+                email: "SellerEmail@gmail.com"
+            },
+            {
+                title: "Microphone",
+                condition: "Lightly used",
+                features: "Background noise filtering",
+                price: 30,
+                image: "images/product7.jpeg",
+                category: "Electronics",
+                description: "Mpow HC6 USB Headset with Microphone, Comfort-fit Office Computer Headphone, On-ear 3.5mm Jack Call Center Headset for Cell Phone, 270 Degree Boom Mic, In-line Control with Mute for Skype, Webinar",
+                fullname: "Siti Sarah",
+                username: "Anonymous seller 7",
+                contact: "+012-3456789",
+                address: "2, Jalan Kampung Majid 2/1, Taman Kampung Majid, 86000 Kluang, Johor, Malaysia",
+                email: "SellerEmail@gmail.com"
+            }
+            // tambah product kalau nak
+        ];
+
+        function getQueryParameter(name) { //NAK TRANSFER THE DATA TO THE OTHER PAGE
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function displaySearchResults() { //FILTER APA YANG KITA SEARCH
+            const query = getQueryParameter('query').toLowerCase();
+            const productListing = document.querySelector('.product-listing');
+            const filteredProducts = products.filter(product =>
+                product.title.toLowerCase().includes(query) ||
+                product.category.toLowerCase().includes(query)
+            );
+
+            filteredProducts.forEach(product => { //DISPLAY EVERY PRODUCT, MACAM LOOP
+                const productCard = document.createElement('div');
+                productCard.classList.add('card');
+
+                productCard.innerHTML = `
+            <img src="${product.image}" class="card-img-top" alt="${product.title}">
+            <div class="card-body">
+                <h5 class="card-title" >${product.title}</h5>
+                <p class="card-text">Features: ${product.features}</p>
+                <p class="card-text">Condition: ${product.condition}</p>
+                <p class="card-text">Price: RM${product.price}</p>
+                <a href="product_info.html?title=${encodeURIComponent(product.title)}&condition=${encodeURIComponent(product.condition)}&features=${encodeURIComponent(product.features)}&price=${product.price}&image=${encodeURIComponent(product.image)}&category=${encodeURIComponent(product.category)}&description=${encodeURIComponent(product.description)}&fullname=${encodeURIComponent(product.fullname)}&username=${encodeURIComponent(product.username)}&contact=${encodeURIComponent(product.contact)}&address=${encodeURIComponent(product.address)}&email=${encodeURIComponent(product.email)}" class="btn btn-primary">View Details</a>
+            </div>
+        `;
+                productListing.appendChild(productCard);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', displaySearchResults);
+        function toggleNavbar() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+        const product_list = [
+            "Laptop", "Shirt", "Phone", "Chocojar", "Iphone 13", "Jacket", "Microphone", "Clothes", "Electronics", "Food", "Services"
+        ];
+        function populateSuggestions() {
+            const suggestions = document.getElementById('suggestions');
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product;
+                suggestions.appendChild(option);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', populateSuggestions);
+        $(document).ready(function () {
+
+            $("#search-bar").autocomplete({
+                source: product_list
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/geoapify-js@1.2.0/dist/geoapify.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<style>
+    /* KALAU NAK COPY NAVBAR, START DARI SINI, SAMPAI KAT BAWAH BILE NAMPAK COMMNENT*/
+#Navigation{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid grey;
+    background-color: rgb(255, 253, 253);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: px 15px;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .navbar li {
+    margin: 0 10px;
+    color: rgb(230, 160, 47);
+  }
+  
+  .navbar a {
+    color: rgb(230, 160, 47);
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    text-align: center;
+  }
+  
+  .navbar a:hover {
+    background-color: rgb(215, 215, 215);
+    border-radius: 10px;
+    color: black;
+  }
+  
+  .navbar .icon {
+    display: none;
+  }
+  
+  #picture {
+    border-radius: 50%;
+    border: 3px solid rgb(230, 160, 47);
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  #search-bar {
+    flex-grow: 1;
+    padding: 10px;
+    margin: 15px;
+    border-radius: 20px;
+    border: 1px solid rgb(230, 160, 47);
+    max-width: 300px;
+  }
+  
+  #title {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(230, 160, 47);
+    margin-left: auto;
+    font-size: 1.5rem;
+    margin-right: 15px;
+  }
+  
+  #Sellproduct {
+    color: rgb(253, 250, 250);
+    background-color: rgb(247, 66, 66);
+    border-radius: 10px;
+    opacity: 80%;
+  }
+  
+  #Sellproduct:hover{
+    background-color: rgb(249, 0, 0);
+  }
+  
+  @media screen and (max-width: 500px) {
+    .navbar ul {
+        flex-direction: column;
+        width: 100%;
+    }
+  
+    .navbar li {
+        display: none;
+    }
+  
+    .navbar li.icon {
+        display: block;
+    }
+  
+    .navbar.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0px;
+    }
+  
+    .navbar.responsive ul {
+        flex-direction: column;
+        width: 100%;
+    }
+  
+    .navbar.responsive li {
+        display: block;
+        width: 100%;
+    }
+  
+    .navbar.responsive #search-bar {
+        margin: 10px 0;
+        width: 100%;
+        max-width: none;
+    }
+  
+    .navbar.responsive #title {
+        margin-top: 10px;
+        font-size: 1.2rem;
+        text-align: center;
+        width: 100%;
+    }
+  
+    .navbar.responsive a {
+        text-align: left;
+        padding: 14px;
+    }
+  }
+
+  .ui-autocomplete {
+    background-color: white;
+    border: 1px solid #ddd;
+    font-family: 'Salsa', cursive; 
+    font-size: 16px;
+    max-height: 200px;
+    overflow-y: auto; 
+    width: 300px; 
+    z-index: 1001;
+}
+
+.ui-menu-item {
+    padding: 8px 12px; 
+    cursor: pointer; 
+}
+
+.ui-menu-item:hover {
+    background-color: #f1f1f1;
+}
+
+.ui-state-focus {
+    background-color: #ddd !important; 
+}
+  /*sAMPAI SINI HABIS NAVBAR*/
+
+#container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px; 
+  margin: 50px auto;
+}
+
+#product-container {
+  background-color: #f5f5f5;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
+  max-width: 600px;
+}
+
+#product-image{
+  height: auto;
+  max-height: 400px;
+  width: auto;
+  max-height: 400px;
+}
+
+#product-price{
+  font-size: 30px;
+  color: red;
+}
+
+#user-container {
+  background-color: #f5f5f5;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
+  max-width: 600px;
+}
+
+#user-image {
+  border: 5px solid grey;
+  border-radius: 120px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
+}
+
+#user-fullname{
+  font-size: 30px;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px;
+  cursor: pointer; 
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#map {
+  height: 400px;
+  width: 100%; 
+  border-radius: 20px;
+  margin-top: 20px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+</style>
+<body>
+    <header id="Navigation">
+        <nav class="navbar" id="myTopnav">
+            <ul>
+                <li><img id="picture" src="images/images.jpeg" alt="Profile Picture"></li>
+                <li>
+                    <form action="productlist.html" method="get"><input name="query" placeholder="search..." for="tags"
+                            type="text" id="search-bar" placeholder="search..."></form>
+                </li>
+                <li>|</li>
+                <li><a href="Homepage.html" class="active">Home</a></li>
+                <li>|</li>
+                <li><a href="About.html">About</a></li>
+                <li>|</li>
+                <li><a href="ProductBrowsing.html">Shop</a></li>
+                <li>|</li>
+                <li><a href="help.html">Help</a></li>
+                <li>|</li>
+                <li><a href="chatbot.html">AI Chatbot</a></li>
+                <li>|</li>
+                <li><a id="Sellproduct" href="sellproduct.html">&#x1F4B8; Sell Product</a></li>
+                <li class="icon">
+                    <a href="javascript:void(0);" onclick="toggleNavbar()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
+        </nav>
+    </header>
+    <div id="container">
+        <div id="product-container">
+            <h3 id="product-title"></h3>
+            <img id="product-image" src="" alt="Product Image">
+            <p id="product-price"></p>
+            <p id="product-features"></p>
+            <p id="product-description"></p>
+            <span id="product-category"></span>
+        </div>
+        <div id="user-container">
+            <img id="user-image" src="images/images.jpeg" alt="User Image">
+            <h3 id="user-fullname"></h3>
+            <p id="user-username"></p>
+            <p id="user-contact"></p>
+            <p id="user-address"></p>
+            <p id="user-email"></p>
+            <button onclick="geocodeAddress()">Look Address in Maps</button>
+            <p id="result"></p>
+            <div id="map" style="width: 600px; height: 400px;"></div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            "Laptop", "Shirt", "Phone", "Chocojar", "Iphone 13", "Jacket", "Microphone", "Clothes", "Electronics", "Food", "Services"
+        ];
+
+        function populateSuggestions() {
+            const suggestions = document.getElementById('suggestions');
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product;
+                suggestions.appendChild(option);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', populateSuggestions);
+        $(document).ready(function() {
+            $("#search-bar").autocomplete({
+                source: products
+            });
+        });
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function displayProductDetails() {
+            const title = getQueryParameter('title');
+            const condition = getQueryParameter('condition');
+            const features = getQueryParameter('features');
+            const price = getQueryParameter('price');
+            const image = getQueryParameter('image');
+            const category = getQueryParameter('category');
+            const description = getQueryParameter('description');
+            const fullname = getQueryParameter('fullname');
+            const username = getQueryParameter('username');
+            const contact = getQueryParameter('contact');
+            const address = getQueryParameter('address');
+            const email = getQueryParameter('email');
+
+            if (title && condition && features && price && image && category) {
+                document.querySelector('#product-title').innerHTML = title;
+                document.querySelector('#product-price').innerHTML = `RM ${price}`;
+                document.querySelector('#product-features').innerHTML = `Features: ${features}<br/>Condition: ${condition}`;
+                document.querySelector('#product-description').innerHTML = `Description: ${description}`;
+                document.querySelector('#product-category').innerHTML = category;
+                document.querySelector('#product-image').src = image;
+            }
+
+            if (fullname && username && contact && email) {
+                document.querySelector('#user-fullname').innerHTML = fullname;
+                document.querySelector('#user-username').innerHTML = `Username: ${username}`;
+                document.querySelector('#user-contact').innerHTML = `Contact: ${contact}`;
+                document.querySelector('#user-address').innerHTML = `Address: ${address}`;
+                document.querySelector('#user-email').innerHTML = `Email: ${email}`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', displayProductDetails);
+
+        function geocodeAddress() {
+            const addressElement = document.getElementById("user-address");
+            const address = addressElement ? addressElement.innerText : '';
+
+            console.log("Geocoding address:", address); // Log the address
+            if (!address || address.length < 3) {
+                alert("The address string is too short. Enter at least three symbols");
+                return;
+            }
+
+            const geocodingUrl = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=860a4e0ecb9f4e7392fa51f5851c15a0`;
+
+            fetch(geocodingUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Geocoding response data:", data); // Log the entire response data
+                    if (data.features.length === 0) {
+                        alert("No results found");
+                        return;
+                    }
+                    // Access coordinates lepastu simpan
+                    const coordinates = data.features[0].geometry.coordinates;
+                    document.getElementById("result").innerText = `Latitude: ${coordinates[1]}, Longitude: ${coordinates[0]}`;
+
+                    // Use the coordinates to mark dalam
+                    initMap(coordinates[1], coordinates[0]);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        function initMap(latitude, longitude) {
+            // Create the map
+            var map = L.map('map').setView([latitude, longitude], 13);
+
+            // Add the Geoapify tile layer
+            L.tileLayer(`https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=860a4e0ecb9f4e7392fa51f5851c15a0`, {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Letak marker
+            L.marker([latitude, longitude]).addTo(map);
+        }
+    </script>
+</body>
+</html>

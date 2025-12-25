@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="chatbot.css">
+    <script src="chatbot.js" defer></script>
+    <title>AI Chatbot</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <style>
+        #Navigation {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid grey;
+            background-color: rgb(255, 253, 253);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 15px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar li {
+            margin: 0 10px;
+            color: rgb(230, 160, 47);
+        }
+
+        .navbar a {
+            color: rgb(230, 160, 47);
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        .navbar a:hover {
+            background-color: rgb(215, 215, 215);
+            border-radius: 10px;
+            color: black;
+        }
+
+        .navbar .icon {
+            display: none;
+        }
+
+        #picture {
+            border-radius: 50%;
+            border: 3px solid rgb(230, 160, 47);
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        #search-bar {
+            flex-grow: 1;
+            padding: 10px;
+            margin: 15px;
+            border-radius: 20px;
+            border: 1px solid rgb(230, 160, 47);
+            max-width: 300px;
+        }
+
+        #title {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: rgb(230, 160, 47);
+            margin-left: auto;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        #Sellproduct {
+            color: rgb(253, 250, 250);
+            background-color: rgb(247, 66, 66);
+            border-radius: 10px;
+            opacity: 80%;
+        }
+
+        #Sellproduct:hover {
+            background-color: rgb(249, 0, 0);
+        }
+
+        @media screen and (max-width: 500px) {
+            .navbar ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar li {
+                display: none;
+            }
+
+            .navbar li.icon {
+                display: block;
+            }
+
+            .navbar.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0px;
+            }
+
+            .navbar.responsive ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar.responsive li {
+                display: block;
+                width: 100%;
+            }
+
+            .navbar.responsive #search-bar {
+                margin: 10px 0;
+                width: 100%;
+                max-width: none;
+            }
+
+            .navbar.responsive #title {
+                margin-top: 10px;
+                font-size: 1.2rem;
+                text-align: center;
+                width: 100%;
+            }
+
+            .navbar.responsive a {
+                text-align: left;
+                padding: 14px;
+            }
+        }
+
+        .ui-autocomplete {
+            background-color: white;
+            border: 1px solid #ddd;
+            font-family: 'Salsa', cursive;
+            font-size: 16px;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 300px;
+            z-index: 1001;
+        }
+
+        .ui-menu-item {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .ui-menu-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .ui-state-focus {
+            background-color: #ddd !important;
+        }
+
+        /*sAMPAI SINI HABIS NAVBAR*/
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .chat-container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        /* Sidebar */
+        .chat-sidebar {
+            width: 260px;
+            background: #f5f5f5;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        /* Chat main */
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: #ee4d2d;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #fafafa;
+        }
+
+        /* Messages */
+        .bot-message,
+        .user-message {
+            max-width: 70%;
+            padding: 10px 14px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .bot-message {
+            background: #e0e0e0;
+        }
+
+        .user-message {
+            background: #ee4d2d;
+            color: white;
+            margin-left: auto;
+        }
+
+        /* Input */
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .chat-input button {
+            margin-left: 10px;
+            background: #ee4d2d;
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="Navigation">
+        <nav class="navbar" id="myTopnav">
+            <ul>
+                <li><img id="picture" src="images/images.jpeg" alt="Profile Picture"></li>
+                <li>
+                    <form action="productlist.html" method="get"><input name="query" placeholder="search..." for="tags"
+                            type="text" id="search-bar" placeholder="search..."></form>
+                </li>
+                <li>|</li>
+                <li><a href="Homepage.html" class="active">Home</a></li>
+                <li>|</li>
+                <li><a href="About.html">About</a></li>
+                <li>|</li>
+                <li><a href="ProductBrowsing.html">Shop</a></li>
+                <li>|</li>
+                <li><a href="help.html">Help</a></li>
+                <li>|</li>
+                <li><a href="chatbot.html">AI Chatbot</a></li>
+                <li>|</li>
+                <li><a id="Sellproduct" href="sellproduct.html">&#x1F4B8; Sell Product</a></li>
+                <li class="icon">
+                    <a href="javascript:void(0);" onclick="toggleNavbar()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
+        </nav>
+    </header>
+    <div class="chat-container">
+
+        <!-- Left Panel -->
+        <div class="chat-sidebar">
+            <h3>IIUM AI Support</h3>
+            <p>Ask anything about:</p>
+            <ul>
+                <li>Buying & Selling</li>
+                <li>Featured Listings</li>
+                <li>Advertisements</li>
+                <li>Account Issues</li>
+            </ul>
+        </div>
+
+        <!-- Right Chat Area -->
+        <div class="chat-main">
+            <div class="chat-header">
+                AI Customer Support
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="bot-message">
+                    👋 Hi! I’m the IIUM Marketplace AI. How can I help you today?
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Type your message..." />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById("user-input");
+            const chat = document.getElementById("chat-messages");
+
+            const message = input.value.trim();
+            if (!message) return;
+
+            // User message
+            const userDiv = document.createElement("div");
+            userDiv.className = "user-message";
+            userDiv.textContent = message;
+            chat.appendChild(userDiv);
+
+            input.value = "";
+            chat.scrollTop = chat.scrollHeight;
+
+            // AI placeholder reply
+            setTimeout(() => {
+                const botDiv = document.createElement("div");
+                botDiv.className = "bot-message";
+                botDiv.textContent =
+                    "Thanks for your question! This AI support feature will assist IIUM users with marketplace inquiries.";
+                chat.appendChild(botDiv);
+                chat.scrollTop = chat.scrollHeight;
+            }, 700);
+        }
+
+    </script>
+</body>
+
+</html>
+</body>
+
+</html>

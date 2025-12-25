@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensure the video stays in the background */
+            object-fit: cover; /* Ensure the video covers the entire background */
+        }
+        .login-container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Add position relative to position the About Us button */
+        }
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: rgba(247, 247, 247, 0.6); /* Orange color with slight transparency */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        .login-title {
+            color: #121203fa; /* White text color */
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .form-group label {
+            color: #110707; /* White label color */
+            font-weight: bold;
+        }
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.8); /* Light background for input fields */
+            color: #333; /* Dark text color */
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .btn-primary {
+            background-color: #5244a1; 
+            border-color: #3d2e96;
+        }
+        .btn-primary:hover {
+            background-color: #04065e;
+            border-color: #0a0a46;
+        }
+        .btn-danger {
+            background-color: #581bc2; 
+            border-color: #3a20cf;
+        }
+        .btn-danger:hover {
+            background-color: #0e034e; 
+            border-color: #1f0a5b;
+        }
+        .btn-secondary {
+            background-color: #1b15d6; 
+            border-color: #1e10e0;
+        }
+        .btn-secondary:hover {
+            background-color: #1b0e63; 
+            border-color: #0a0553;
+        }
+        /* Styles for the "About Us" button */
+        .about-us-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 999; /* Ensure the button is above other elements */
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-background">
+        <source src="images/white_ink_02.mp4" type="video/mp4"> <!-- vid file -->
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2 class="login-title">WELCOME TO IIUM MARKET PLACE</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <div id="error-message" class="text-danger mt-2" style="display: none;">Invalid username or password. Please try again.</div>
+            </form>
+            <div class="text-center mt-3">
+                <p>Or sign up with</p>
+                <button class="btn btn-danger" id="googleSignInBtn">Google</button>
+                <button class="btn btn-secondary" id="microsoftSignInBtn">Microsoft</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- "About Us" button -->
+    <button class="btn btn-info about-us-button" onclick="redirectToAboutUs()">About Us</button>
+
+    <!-- JavaScript for redirection to About Us page -->
+    <script>
+        function redirectToAboutUs() {
+            // Redirect to the About Us page
+            window.location.href = "aboutUs.html"; //  About Us page
+        }
+    </script>
+
+    <!-- JavaScript for handling login -->
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const loginForm = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('error-message');
+
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value.trim();
+
+                if (!username || !password) {
+                    alert('Please fill in both username and password fields.');
+                    return;
+                }
+
+                // Simulate login with username/password
+                const users = [
+                    { username: 'user1', password: 'password1' },
+                    { username: 'user2', password: 'password2' }
+                ];
+
+                const user = users.find(user => user.username === username && user.password === password);
+                if (user) {
+                    // Redirect to HomePage.html after successful login
+                    window.location.href = "HomePage.html"; // Redirect to Home page
+                } else {
+                    errorMessage.style.display = 'block';
+                }
+            });
+
+            document.getElementById('googleSignInBtn').addEventListener('click', function() {
+    const googleClientId = '760309623161-hu6n93la884i137q2cacf1al2lgklpui.apps.googleusercontent.com'; 
+    const redirectUri = 'http://localhost:3000/auth/google/callback'; 
+    const scope = 'openid profile email';
+    const responseType = 'token';
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
+    
+    window.location.href = googleAuthUrl;
+});
+
+
+            document.getElementById('microsoftSignInBtn').addEventListener('click', function() {
+                // Redirect to Microsoft login page
+                window.location.href = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?redirect_uri=http://localhost:3000/auth/microsoft&response_type=token&scope=openid%20profile%20email';
+            });
+        });
+    </script>
+</body>
+</html>
+

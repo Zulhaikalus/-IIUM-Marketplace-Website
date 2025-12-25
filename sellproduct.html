@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Salsa&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+</head>
+<style>
+    #Navigation {
+        position: sticky;
+        top: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 2px solid grey;
+        background-color: rgb(255, 253, 253);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 15px;
+    }
+
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .navbar li {
+        margin: 0 10px;
+        color: rgb(230, 160, 47);
+    }
+
+    .navbar a {
+        color: rgb(230, 160, 47);
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        text-align: center;
+    }
+
+    .navbar a:hover {
+        background-color: rgb(215, 215, 215);
+        border-radius: 10px;
+        color: black;
+    }
+
+    .navbar .icon {
+        display: none;
+    }
+
+    #picture {
+        border-radius: 50%;
+        border: 3px solid rgb(230, 160, 47);
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    #search-bar {
+        flex-grow: 1;
+        padding: 10px;
+        margin: 15px;
+        border-radius: 20px;
+        border: 1px solid rgb(230, 160, 47);
+        max-width: 300px;
+    }
+
+    #title {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        color: rgb(230, 160, 47);
+        margin-left: auto;
+        font-size: 1.5rem;
+        margin-right: 15px;
+    }
+
+    #Sellproduct {
+        color: rgb(253, 250, 250);
+        background-color: rgb(247, 66, 66);
+        border-radius: 10px;
+        opacity: 80%;
+    }
+
+    #Sellproduct:hover {
+        background-color: rgb(249, 0, 0);
+    }
+
+    @media screen and (max-width: 600px) {
+        .navbar ul {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .navbar li {
+            display: none;
+        }
+
+        .navbar li.icon {
+            display: block;
+        }
+
+        .navbar.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0px;
+        }
+
+        .navbar.responsive ul {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .navbar.responsive li {
+            display: block;
+            width: 100%;
+        }
+
+        .navbar.responsive #search-bar {
+            margin: 10px 0;
+            width: 100%;
+            max-width: none;
+        }
+
+        .navbar.responsive #title {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .navbar.responsive a {
+            text-align: left;
+            padding: 14px;
+        }
+    }
+
+    .ui-autocomplete {
+        background-color: white;
+        border: 1px solid #ddd;
+        font-family: 'Salsa', cursive;
+        font-size: 16px;
+        max-height: 200px;
+        overflow-y: auto;
+        width: 300px;
+        z-index: 1001;
+    }
+
+    .ui-menu-item {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    .ui-menu-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .ui-state-focus {
+        background-color: #ddd !important;
+    }
+
+
+
+    fieldset {
+        border-radius: 20px;
+        background-color: rgba(0, 0, 0, 0.086);
+        border-color: rgba(0, 0, 0, 0.086);
+        width: 350px;
+        text-align: center;
+    }
+
+    .image {
+        float: left;
+        margin-right: 20px;
+    }
+
+    img {
+        max-width: 500px;
+    }
+
+    #money-btn {
+        background-color: red;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+    #upload-photo {
+        display: none;
+    }
+
+    #photo-trigger {
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <header id="Navigation">
+        <nav class="navbar" id="myTopnav">
+            <ul>
+                <li><img id="picture" src="images/images.jpeg" alt="Profile Picture"></li>
+                <li>
+                    <form action="productlist.html" method="get"><input name="query" placeholder="search..." for="tags"
+                            type="text" id="search-bar" placeholder="search..."></form>
+                </li>
+                <li>|</li>
+                <li><a href="Homepage.html" class="active">Home</a></li>
+                <li>|</li>
+                <li><a href="About.html">About</a></li>
+                <li>|</li>
+                <li><a href="ProductBrowsing.html">Shop</a></li>
+                <li>|</li>
+                <li><a href="help.html">Help</a></li>
+                <li>|</li>
+                <li><a href="chatbot.html">AI Chatbot</a></li>
+                <li>|</li>
+                <li><a id="Sellproduct" href="sellproduct.html">&#x1F4B8; Sell Product</a></li>
+                <li class="icon">
+                    <a href="javascript:void(0);" onclick="toggleNavbar()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
+        </nav>
+    </header>
+    <section class="sell-product" style="display: flex; justify-content: center; align-items: center;">
+        <form action="/submit_photos" method="post" class="photos">
+            <h2>What are you selling today</h2>
+            <br>
+            <div class="form-group"
+                style="background-color:  rgba(0, 0, 0, 0.086); width: 500px; height: 500px; border-radius: 20px; text-align: center;">
+                <br>
+                <img src="images/addphoto.png" alt="Click to upload photo" id="photo-trigger"
+                    style="border: 10px; border-radius: 20px;">
+                <input type="file" id="upload-photo" accept="image/*">
+                <script src="script.js"></script>
+
+                <p class="mt-2">At least 3 photos</p>
+                <p class="mt-2">Clear photo</p>
+            </div>
+        </form>
+
+        <form action="/submit_product" method="post" class="details">
+            <br><br><br><br><br>
+            <div>
+                <fieldset style="width: 400px; height: 100px;">
+                    <label for="category" style="font-size: 20px;">Select Category:</label><br>
+                    <select id="category" name="category" style="width: 300px; height: 48px; font-size: 16px;">
+                        <option value="">Select...</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Food">Food</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Accessories">Services</option>
+                    </select>
+
+                </fieldset>
+
+
+                <br>
+
+                <form>
+                    <fieldset style="width: 400px; height: 100px;">
+                        <label for="category" style="font-size: 20px;">Condition:</label><br><br>
+                        <input type="radio" id="brand_new" name="condition" value="brand_new" required>
+                        <label for="html">Brand new</label>
+                        <input type="radio" id="heavily_used" name="condition" value="heavily_used">
+                        <label for="css">Heavily used</label>
+                        <input type="radio" id="lightly_used" name="condition" value="lightly_used">
+                        <label for="javascript">Lightly used</label>
+                        <input type="radio" id="None" name="condition" value="Not_item">
+                        <label for="javascript">None</label>
+                    </fieldset>
+                </form>
+
+                <br>
+
+                <fieldset style="width: 400px; height: 250px;">
+                    <label for="details" style="font-size: 20px;">Item Details:</label><br>
+                    <textarea id="features" name="details" rows="2" cols="20" placeholder="Features"
+                        style="border-radius: 5px; border-width: 3px; border-color: rgba(128, 128, 128, 0.496); width: 300px;"></textarea><br>
+                    <textarea id="description" name="details" rows="2" cols="20" placeholder="Description"
+                        style="border-radius: 5px; border-width: 3px; border-color: rgba(128, 128, 128, 0.496); width: 300px;"></textarea><br>
+                    <textarea id="price" name="details" rows="2" cols="20" placeholder="Price"
+                        style="border-radius: 5px; border-width: 3px; border-color: rgba(128, 128, 128, 0.496); width: 300px;"></textarea>
+                </fieldset>
+
+                <br><br>
+            </div>
+        </form>
+
+
+
+    </section>
+
+    <button id="money-btn" style="display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+        &#x1F4B8;Sell product
+    </button>
+    <br>
+    <script>
+        const priceInput = document.getElementById('price');
+
+        priceInput.addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        const moneyBtn = document.getElementById('money-btn');
+
+        moneyBtn.addEventListener('click', () => {
+            // Check if the category is selected
+            const category = document.getElementById('category').value;
+            if (category === "") {
+                alert('Please select a category');
+                return;
+            }
+
+            // Check if a condition is selected
+            const conditionInputs = document.querySelectorAll('input[name="condition"]');
+            let conditionSelected = false;
+            conditionInputs.forEach(input => {
+                if (input.checked) {
+                    conditionSelected = true;
+                }
+            });
+            if (!conditionSelected) {
+                alert('Please select a condition');
+                return;
+            }
+
+            // Check if item details are filled
+            const features = document.getElementById('features').value;
+            const description = document.getElementById('description').value;
+            const price = document.getElementById('price').value;
+            if (features === "" || description === "" || price === "") {
+                alert('Please fill in all item details');
+                return;
+            }
+
+            alert('Your product is successfully on sell'); // Proceed with form submission or other actions
+        });
+
+        const photoTrigger = document.getElementById('photo-trigger');
+        const uploadPhoto = document.getElementById('upload-photo');
+
+        photoTrigger.addEventListener('click', () => {
+            uploadPhoto.click();
+        });
+
+        function toggleNavbar() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            }
+            else {
+                x.className = "navbar";
+            }
+        }
+        const products = [
+            "Laptop", "Shirt", "Phone", "Chocojar", "Iphone 13", "Jacket", "Microphone", "Clothes", "Electronics", "Food", "Services"
+        ];
+
+        function populateSuggestions() {
+            const suggestions = document.getElementById('suggestions');
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product;
+                suggestions.appendChild(option);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', populateSuggestions);
+        $(document).ready(function () {
+
+            $("#search-bar").autocomplete({
+                source: products
+            });
+        });
+    </script>
+
+    <footer style="background-color: grey; color: white;">
+        <p>&copy; Web Philosopher
+            <?php echo date("Y"); ?>
+        </p>
+        <p></p>
+    </footer>
+
+</body>
+
+</html>

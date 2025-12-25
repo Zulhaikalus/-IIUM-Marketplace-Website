@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="chatbot.css">
+    <script src="chatbot.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Salsa&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <style type="text/css">
+        body {
+            background-image: url("images/IIUMbg.jpg");
+        }
+
+        #resizable {
+            width: 400px;
+            height: 20px;
+            padding: 0.5em;
+        }
+
+        #resizable h3 {
+            text-align: center;
+            margin: 0;
+        }
+
+        /* KALAU NAK COPY NAVBAR, START DARI SINI, SAMPAI KAT BAWAH BILE NAMPAK COMMNENT*/
+        #Navigation {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid grey;
+            background-color: rgb(255, 253, 253);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 15px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar li {
+            margin: 0 10px;
+            color: rgb(230, 160, 47);
+        }
+
+        .navbar a {
+            color: rgb(230, 160, 47);
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        .navbar a:hover {
+            background-color: rgb(215, 215, 215);
+            border-radius: 10px;
+            color: black;
+        }
+
+        .navbar .icon {
+            display: none;
+        }
+
+        #picture {
+            border-radius: 50%;
+            border: 3px solid rgb(230, 160, 47);
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        #search-bar {
+            flex-grow: 1;
+            padding: 10px;
+            margin: 15px;
+            border-radius: 20px;
+            border: 1px solid rgb(230, 160, 47);
+            max-width: 300px;
+        }
+
+        #title {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: rgb(230, 160, 47);
+            margin-left: auto;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        #Sellproduct {
+            color: rgb(253, 250, 250);
+            background-color: rgb(247, 66, 66);
+            border-radius: 10px;
+            opacity: 80%;
+        }
+
+        #Sellproduct:hover {
+            background-color: rgb(249, 0, 0);
+        }
+
+        @media screen and (max-width: 500px) {
+            .navbar ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar li {
+                display: none;
+            }
+
+            .navbar li.icon {
+                display: block;
+            }
+
+            .navbar.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0px;
+            }
+
+            .navbar.responsive ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar.responsive li {
+                display: block;
+                width: 100%;
+            }
+
+            .navbar.responsive #search-bar {
+                margin: 10px 0;
+                width: 100%;
+                max-width: none;
+            }
+
+            .navbar.responsive #title {
+                margin-top: 10px;
+                font-size: 1.2rem;
+                text-align: center;
+                width: 100%;
+            }
+
+            .navbar.responsive a {
+                text-align: left;
+                padding: 14px;
+            }
+        }
+
+        .ui-autocomplete {
+            background-color: white;
+            border: 1px solid #ddd;
+            font-family: 'Salsa', cursive;
+            font-size: 16px;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 300px;
+            z-index: 1001;
+        }
+
+        .ui-menu-item {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .ui-menu-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .ui-state-focus {
+            background-color: #ddd !important;
+        }
+
+        /*sAMPAI SINI HABIS NAVBAR*/
+    </style>
+</head>
+
+<body>
+    <header id="Navigation">
+        <nav class="navbar" id="myTopnav">
+            <ul>
+                <li><img id="picture" src="images/images.jpeg" alt="Profile Picture"></li>
+                <li>
+                    <form action="productlist.html" method="get"><input name="query" placeholder="search..." for="tags"
+                            type="text" id="search-bar" placeholder="search..."></form>
+                </li>
+                <li>|</li>
+                <li><a href="Homepage.html" class="active">Home</a></li>
+                <li>|</li>
+                <li><a href="About.html">About</a></li>
+                <li>|</li>
+                <li><a href="ProductBrowsing.html">Shop</a></li>
+                <li>|</li>
+                <li><a href="help.html">Help</a></li>
+                <li>|</li>
+                <li><a href="chatbot.html">AI Chatbot</a></li>
+                <li>|</li>
+                <li><a id="Sellproduct" href="sellproduct.html">&#x1F4B8; Sell Product</a></li>
+                <li class="icon">
+                    <a href="javascript:void(0);" onclick="toggleNavbar()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
+        </nav>
+    </header>
+    <div id="resizable" class="ui-widget-content"
+        style="margin: 0 auto; display: block; border-radius: 20px; z-index: 0;">
+        <h3 class="ui-widget-header">Date/Time: <span id="datetime"></span></h3>
+    </div>
+
+    <script>
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = dt.toLocaleString();
+    </script>
+
+    <br>
+    <section class="sell-product" style="display: flex; justify-content: center; align-items: center; ">
+
+        <form style=" background-color: rgba(245, 245, 245, 0.599); width: 700px; border-radius: 30px;">
+            <br><br>
+            <h1>INTERNATIONAL ISLAMIC UNIVERSITY</h1>
+            <h1>MALAYSIA</h1>
+            <img src="images/IIUMlogo.jpeg" width="400" style="margin: 0 auto; display: block;" />
+            <br><br>
+
+            <div id="accordion" style="width: 600px; margin: 0 auto; display: block;">
+                <h3 style="background-color: gold; color: black; width: 200px; border-radius: 10px; font-weight: bold;">
+                    About Us</h3>
+                <div style="background: rgba(0, 0, 0, 0.542); border-radius: 10px;">
+                    <p style="color: white;">
+                        We are students of group Web Philosopher from the Kulliyyah of Information and Communication
+                        Technology (KICT) at the International Islamic University Malaysia (IIUM) are putting our web
+                        development skills to the test.
+                        As part of our Web Technologies subject, we embarked on an ambitious project: building a website
+                        for the very IIUM Marketplace itself.
+                        This website promises to be a valuable resource for the IIUM community, providing a platform for
+                        students, faculty, and staff to buy, sell, and trade goods and services.
+                    </p>
+                </div>
+                <h3 style="background-color: gold; color: black; width: 200px; border-radius: 10px; font-weight: bold;">
+                    About IIUM</h3>
+                <div style="background: rgba(0, 0, 0, 0.542); border-radius: 10px;">
+                    <p style="color: white;">
+                        The International Islamic University Malaysia (IIUM; Malay: Universiti Islam Antarabangsa
+                        Malaysia;
+                        Jawi: اونيۏرسيتي اسلام انتارابڠسا مليسيا; Arabic: الجامعة الإسلامية العالمية بماليزيا) is a
+                        public university in Malaysia.
+                        Headquartered in Gombak, Selangor, IIUM has six other campuses all over Malaysia:
+                        two medical-centric campuses and a Centre for Foundation Studies in Gambang, Pahang, two city
+                        campuses in Kuala Lumpur, and a language and tourism campus in Pagoh, Johor.
+                    </p>
+                </div>
+                <h3 style="background-color: gold; color: black; width: 200px; border-radius: 10px; font-weight: bold;">
+                    IIUM Song</h3>
+                <div style="background: rgba(0, 0, 0, 0.542); border-radius: 10px;">
+                    <br>
+                    <iframe style="margin: 0 auto; display: block;" width="500" height="280"
+                        src="https://www.youtube.com/embed/SCympfVV5eM?si=eFqHVjQPMRYpVA1q" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <h3 style="background-color: gold; color: black; width: 200px; border-radius: 10px; font-weight: bold;">
+                    IIUM Location</h3>
+                <div style="background: rgba(0, 0, 0, 0.542); border-radius: 10px;">
+                    <br>
+                    <iframe style="margin: 0 auto; display: block;" width="500" height="400"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.4000722470373!2d101.73195977447052!3d3.250330752523368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc38c2f70795af%3A0xf808897bf1163a3!2sInternational%20Islamic%20University%20Malaysia!5e0!3m2!1sen!2smy!4v1716516293360!5m2!1sen!2smy"
+                        style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <br>
+                    <p style="color: white;">
+                        Jln Gombak, 53100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur, Malaysia, Gombak, Selangor,
+                        Malaysia
+                    </p>
+                    <br>
+                </div>
+            </div>
+            <form>
+                <br><br>
+    </section>
+
+    <footer style="background-color: grey; color: white;">
+        <p>&copy; Web Philosopher
+            <?php echo date("Y"); ?>
+        </p>
+        <p></p>
+    </footer>
+
+    <script>
+        $(function () {
+            $("#resizable").resizable();
+        });
+
+        $(function () {
+            $("#accordion").accordion();
+        });
+
+        function toggleNavbar() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+
+        const products = [
+            "Laptop", "Shirt", "Phone", "Chocojar", "Iphone 13", "Jacket", "Microphone", "Clothes", "Electronics", "Food", "Services"
+        ];
+
+        function populateSuggestions() {
+            const suggestions = document.getElementById('suggestions');
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product;
+                suggestions.appendChild(option);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', populateSuggestions);
+        $(document).ready(function () {
+
+            $("#search-bar").autocomplete({
+                source: products
+            });
+        });
+    </script>
+    <div id="chatbot-container"></div>
+</body>
+
+</html>
