@@ -253,6 +253,97 @@
         object-fit: cover;
         box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
     }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .product-card {
+        background: white;
+        border-radius: 8px;
+        padding: 10px;
+        position: relative;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: gold;
+        color: black;
+        padding: 4px 8px;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 4px;
+    }
+
+    .mahallah {
+        font-size: 13px;
+        color: #666;
+    }
+
+    /* Featured section container */
+    .featured-section {
+        margin-top: 40px;
+        /* move up */
+        margin-bottom: 60px;
+        padding: 30px 20px;
+        background: #fff7e6;
+        /* soft highlight */
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    /* Title */
+    .featured-title {
+        font-size: 26px;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    /* Subtitle */
+    .featured-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 25px;
+    }
+
+    /* Center the products */
+    .featured-grid {
+        display: flex;
+        justify-content: center;
+        /* CENTER */
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    /* Featured cards slightly bigger */
+    .featured-grid .product-card {
+        width: 220px;
+        transform: scale(1.05);
+    }
+
+    /* Highlight badge */
+    .product-card .badge {
+        background: gold;
+        color: black;
+        font-weight: bold;
+    }
+
+    .categories-section {
+        margin-top: 60px;
+    }
 </style>
 
 <body>
@@ -323,43 +414,130 @@
             </div>
         </div>
     </main>
-    <script>
+    <section class="featured-section">
+        <h2 class="featured-title">🌟 Featured Listings</h2>
+        <p class="featured-subtitle">
+            Promoted items by sellers for higher visibility
+        </p>
 
+        <div id="featuredProducts" class="featured-grid"></div>
+    </section>
+
+    <script>
         function toggleNavbar() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "navbar") {
-                x.className += " responsive";
-            } else {
-                x.className = "navbar";
-            }
+            const x = document.getElementById("myTopnav");
+            x.className =
+                x.className === "navbar" ? "navbar responsive" : "navbar";
         }
 
-        const products = [
-            "Laptop", "Shirt", "Phone", "Chocojar", "Iphone 13", "Jacket", "Microphone", "Clothes", "Electronics", "Food", "Services"
+        const productsSearch = [
+            "Laptop", "Shirt", "Phone", "Chocojar", "iPhone 13",
+            "Jacket", "Microphone", "Clothes", "Electronics", "Food", "Services"
         ];
 
-        function populateSuggestions() {
-            const suggestions = document.getElementById('suggestions');
-            products.forEach(product => {
-                const option = document.createElement('option');
-                option.value = product;
-                suggestions.appendChild(option);
-            });
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const suggestions = document.getElementById("suggestions");
+            if (suggestions) {
+                productsSearch.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item;
+                    suggestions.appendChild(option);
+                });
+            }
 
-        document.addEventListener('DOMContentLoaded', populateSuggestions);
-        $(document).ready(function () {
-
-            $("#search-bar").autocomplete({
-                source: products
-            });
-        });
-        $(document).ready(function () {
-            $(".search-input").autocomplete({
-                source: products
-            });
+            if (window.$) {
+                $(".search-input").autocomplete({
+                    source: productsSearch
+                });
+            }
         });
     </script>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: "Homemade Chicken Burger",
+                price: "RM6",
+                category: "Food",
+                mahallah: "Mahallah Aishah",
+                description: "Fresh homemade chicken burger made daily.",
+                image: "images/burger.jpg",
+                featured: true
+            },
+            {
+                id: 2,
+                name: "Used Calculus Textbook",
+                price: "RM25",
+                category: "Books",
+                mahallah: "Mahallah Zubair",
+                description: "Calculus textbook in good condition.",
+                image: "images/book.jpg",
+                featured: true
+            },
+            {
+                id: 3,
+                name: "Laptop Cleaning Service",
+                price: "RM15",
+                category: "Services",
+                mahallah: "Mahallah Faruq",
+                description: "Professional laptop internal and external cleaning.",
+                image: "images/service.jpg",
+                featured: true
+            },
+            {
+                id: 4,
+                name: "Wireless Mouse",
+                price: "RM20",
+                category: "Electronics",
+                mahallah: "Mahallah Siddiq",
+                description: "Smooth and reliable wireless mouse.",
+                image: "images/mouse.jpg",
+                featured: true
+            }
+        ];
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const featuredContainer = document.getElementById("featuredProducts");
+
+            products.forEach(product => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.onclick = () => openProduct(product);
+
+                card.innerHTML = `
+      <span class="badge">FEATURED</span>
+      <img src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <p>${product.price}</p>
+      <p class="mahallah">${product.mahallah}</p>
+    `;
+
+                featuredContainer.appendChild(card);
+            });
+        });
+        function openProduct(product) {
+            const url = `product_info.html?
+title=${encodeURIComponent(product.name)}&
+condition=Featured Listing&
+features=${encodeURIComponent(product.description)}&
+price=${encodeURIComponent(product.price.replace("RM", ""))}&
+image=${encodeURIComponent(product.image)}&
+category=${encodeURIComponent(product.category)}&
+description=${encodeURIComponent(product.description)}&
+fullname=Featured%20Seller&
+username=IIUM%20Marketplace&
+contact=Not%20Provided&
+address=IIUM&
+email=notprovided@iium.edu.my&
+mahallah=${encodeURIComponent(product.mahallah)}
+`;
+
+            window.location.href = url;
+        }
+
+    </script>
+
 </body>
 
 </html>

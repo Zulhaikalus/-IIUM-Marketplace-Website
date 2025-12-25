@@ -267,7 +267,8 @@
                 username: "Anonymous seller 1",
                 contact: "+012-3456789",
                 address: "35, Jalan TIB 2/12, Taman Industri Bolton, 68100 Batu Caves, Selangor, Malaysia",
-                email: "SellerEmail@gmail.com"
+                email: "SellerEmail@gmail.com",
+                mahallah: "Mahallah Nusaibah"
             },
             {
                 title: "Shirt",
@@ -281,7 +282,8 @@
                 username: "Anonymous seller 2",
                 contact: "+012-3456789",
                 address: "6, Jalan P11a5/6, Presint 11, 62300 Putrajaya, Wilayah Persekutuan Putrajaya, Malaysia",
-                email: "SellerEmail@gmail.com"
+                email: "SellerEmail@gmail.com",
+                mahallah: "Mahallah Aminah"
             },
             {
                 title: "Samsung S22",
@@ -295,7 +297,8 @@
                 username: "Anonymous seller 3",
                 contact: "+012-3456789",
                 address: "34, Lorong Sembilang 3, Taman Teluk Pulai, 41100 Klang, Selangor, Malaysia",
-                email: "SellerEmail@gmail.com"
+                email: "SellerEmail@gmail.com",
+                mahallah: "Mahallah Ali"
             },
             {
                 title: "Chocojar with toppings",
@@ -309,7 +312,8 @@
                 username: "Anonymous seller 4",
                 contact: "+012-3456789",
                 address: "8, Lorong Merbok 7/3, Taman Bunga Blossom, 70100 Seremban, Negeri Sembilan, Malaysia",
-                email: "SellerEmail@gmail.com"
+                email: "SellerEmail@gmail.com",
+                mahallah: "Mahallah Siddiq"
             },
             {
                 title: "Iphone 13",
@@ -323,7 +327,8 @@
                 username: "Anonymous seller 5",
                 contact: "+012-3456789",
                 address: "44, Jln Bukit Beruang Utama 6, Taman Bukit Beruang Utama, 75450 Ayer Keroh, Melaka, Malaysia",
-                email: "SellerEmail@gmail.com"
+                email: "SellerEmail@gmail.com",
+                mahallah: "Mahallah Zubair"
             },
             {
                 title: "Jacket",
@@ -337,7 +342,8 @@
                 username: "Anonymous seller 6",
                 contact: "+012-3456789",
                 address: "32, Jln TPI 3/5, Taman Pinggiran Indah, 68100 Batu Caves, Selangor, Malaysia",
-                email: "SellerEmail@gmail.com"
+                email: "SellerEmail@gmail.com",
+                mahallah: "Mahallah Uthman"
             },
             {
                 title: "Microphone",
@@ -351,11 +357,10 @@
                 username: "Anonymous seller 7",
                 contact: "+012-3456789",
                 address: "2, Jalan Kampung Majid 2/1, Taman Kampung Majid, 86000 Kluang, Johor, Malaysia",
-                email: "SellerEmail@gmail.com"
+                email: "SellerEmail@gmail.com",
+                mahallah: "Mahallah Fatimah"
             }
-            // tambah product kalau nak
         ];
-
         function getQueryParameter(name) { //NAK TRANSFER THE DATA TO THE OTHER PAGE
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
@@ -380,7 +385,23 @@
                 <p class="card-text">Features: ${product.features}</p>
                 <p class="card-text">Condition: ${product.condition}</p>
                 <p class="card-text">Price: RM${product.price}</p>
-                <a href="product_info.html?title=${encodeURIComponent(product.title)}&condition=${encodeURIComponent(product.condition)}&features=${encodeURIComponent(product.features)}&price=${product.price}&image=${encodeURIComponent(product.image)}&category=${encodeURIComponent(product.category)}&description=${encodeURIComponent(product.description)}&fullname=${encodeURIComponent(product.fullname)}&username=${encodeURIComponent(product.username)}&contact=${encodeURIComponent(product.contact)}&address=${encodeURIComponent(product.address)}&email=${encodeURIComponent(product.email)}" class="btn btn-primary">View Details</a>
+                <a href="product_info.html?
+title=${encodeURIComponent(product.title)}&
+condition=${encodeURIComponent(product.condition)}&
+features=${encodeURIComponent(product.features)}&
+price=${product.price}&
+image=${encodeURIComponent(product.image)}&
+category=${encodeURIComponent(product.category)}&
+description=${encodeURIComponent(product.description)}&
+fullname=${encodeURIComponent(product.fullname)}&
+username=${encodeURIComponent(product.username)}&
+contact=${encodeURIComponent(product.contact)}&
+address=${encodeURIComponent(product.address)}&
+email=${encodeURIComponent(product.email)}&
+mahallah=${encodeURIComponent(product.mahallah)}
+" class="btn btn-primary">
+View Details
+</a>
             </div>
         `;
                 productListing.appendChild(productCard);
