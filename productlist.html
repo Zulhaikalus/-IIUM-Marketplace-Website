@@ -214,6 +214,36 @@
     }
 
     /*sAMPAI SINI HABIS NAVBAR*/
+        /* Banner Advertisement */
+    .banner-ad {
+        width: 100%;
+        margin: 20px auto 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    .banner-ad img {
+        width: 80%;
+        max-width: 800px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Sponsored label */
+    .ad-label {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ee4d2d;
+        color: white;
+        padding: 4px 10px;
+        font-size: 12px;
+        border-radius: 20px;
+        z-index: 1;
+    }
 </style>
 
 <body>
@@ -237,6 +267,8 @@
                 <li>|</li>
                 <li><a href="chatbot.html">AI Chatbot</a></li>
                 <li>|</li>
+                <li><a href="advertisement.html">Advertisement</a></li>
+                <li>|</li>
                 <li><a id="Sellproduct" href="sellproduct.html">&#x1F4B8; Sell Product</a></li>
                 <li class="icon">
                     <a href="javascript:void(0);" onclick="toggleNavbar()">
@@ -247,12 +279,39 @@
             <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
         </nav>
     </header>
+    
 
     <section class="product-listing"
         style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; padding: 20px;">
         <h2 style="width: 100%; text-align: center; margin-bottom: 20px;">Product Listings</h2>
     </section>
+        <section class="banner-ad">
+            <span class="ad-label">Sponsored</span>
+            <a id="adLink1" href="#" target="_blank">
+                <img id="adImage1" src="" alt="Advertisement">
+            </a>
+        </section>
 
+
+        <script>
+        const bannerAds = [
+            {
+                image: "images/ad1.png",
+                link: "Product_info.html?title=Burger%20Promo&price=6&category=Food&mahallah=Mahallah%20Aishah"
+            },
+            {
+                image: "images/ad2.jpg",
+                link: "Product_info.html?title=Laptop%20Service&price=20&category=Services&mahallah=Mahallah%20Faruq"
+            }
+        ];
+
+        // Assign ads manually
+        document.getElementById("adImage1").src = bannerAds[0].image;
+        document.getElementById("adLink1").href = bannerAds[0].link;
+
+        document.getElementById("adImage2").src = bannerAds[1].image;
+        document.getElementById("adLink2").href = bannerAds[1].link;
+    </script>
     <script>
         const products = [ //SEMUA PRODUCT INFO
             {

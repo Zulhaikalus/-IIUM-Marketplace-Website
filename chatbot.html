@@ -263,6 +263,34 @@
             border-radius: 20px;
             cursor: pointer;
         }
+
+        .faq-section {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            background: #f9f9f9;
+        }
+
+        .faq-section h4 {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .faq-section button {
+            width: 100%;
+            text-align: left;
+            padding: 8px;
+            margin-bottom: 6px;
+            border: none;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .faq-section button:hover {
+            background: #ee4d2d;
+            color: white;
+        }
     </style>
 </head>
 
@@ -286,6 +314,8 @@
                 <li>|</li>
                 <li><a href="chatbot.html">AI Chatbot</a></li>
                 <li>|</li>
+                <li><a href="advertisement.html">Advertisement</a></li>
+                <li>|</li>
                 <li><a id="Sellproduct" href="sellproduct.html">&#x1F4B8; Sell Product</a></li>
                 <li class="icon">
                     <a href="javascript:void(0);" onclick="toggleNavbar()">
@@ -308,6 +338,33 @@
                 <li>Advertisements</li>
                 <li>Account Issues</li>
             </ul>
+            <div class="faq-section">
+            <h4>Frequently Asked Questions</h4>
+
+            <button onclick="sendFAQ('How do I sell an item?')">
+                How do I sell an item?
+            </button>
+
+            <button onclick="sendFAQ('What is a featured listing?')">
+                What is a featured listing?
+            </button>
+
+            <button onclick="sendFAQ('How much does featured listing cost?')">
+                How much does featured listing cost?
+            </button>
+
+            <button onclick="sendFAQ('How do advertisements work?')">
+                How do advertisements work?
+            </button>
+
+            <button onclick="sendFAQ('How do I contact a seller?')">
+                How do I contact a seller?
+            </button>
+
+            <button onclick="sendFAQ('Where do I pick up items?')">
+                Where do I pick up items?
+            </button>
+        </div>
         </div>
 
         <!-- Right Chat Area -->
@@ -356,6 +413,48 @@
                 chat.appendChild(botDiv);
                 chat.scrollTop = chat.scrollHeight;
             }, 700);
+        }
+
+        const faqReplies = {
+            "How do I sell an item?":
+                "Go to the Sell Product page, fill in your product details, and submit your listing.",
+
+            "What is a featured listing?":
+                "A featured listing is a paid option that makes your product appear at the top of the browsing page.",
+
+            "How much does featured listing cost?":
+                "Featuring a product costs RM10 and gives higher visibility to your item.",
+
+            "How do advertisements work?":
+                "Sellers can purchase banner advertisements to promote their products or services on the browsing page.",
+
+            "How do I contact a seller?":
+                "You can contact sellers directly using the WhatsApp button on the product details page.",
+
+            "Where do I pick up items?":
+                "Pickup locations are based on Mahallah locations provided by the seller."
+        };
+
+        function sendFAQ(question) {
+            const chat = document.getElementById("chat-messages");
+
+            // Show user question
+            const userDiv = document.createElement("div");
+            userDiv.className = "user-message";
+            userDiv.textContent = question;
+            chat.appendChild(userDiv);
+
+            chat.scrollTop = chat.scrollHeight;
+
+            // AI reply
+            setTimeout(() => {
+                const botDiv = document.createElement("div");
+                botDiv.className = "bot-message";
+                botDiv.textContent =
+                    faqReplies[question] || "Let me help you with that.";
+                chat.appendChild(botDiv);
+                chat.scrollTop = chat.scrollHeight;
+            }, 500);
         }
 
     </script>

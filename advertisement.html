@@ -199,65 +199,92 @@
 
     /*sAMPAI SINI HABIS NAVBAR*/
 
-    #center {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        text-align: center;
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
     }
 
-    .items {
-        text-align: center;
-    }
-
-    #first-product {
-        border: 3px solid rgb(230, 160, 47);
-        border-radius: 10px;
-        width: 200px;
-        height: 170px;
-        right: 10px;
-        object-fit: cover;
-        margin-right: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
-    }
-
-    #second-product {
-        border: 3px solid rgb(230, 160, 47);
-        border-radius: 10px;
-        width: 200px;
-        height: 170px;
-        object-fit: cover;
-        box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
-    }
-
-    #third-product {
-        border: 3px solid rgb(230, 160, 47);
-        border-radius: 10px;
-        width: 200px;
-        height: 170px;
-        object-fit: cover;
-        margin-left: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
-    }
-
-    #Shop {
-        text-decoration: none;
-        color: white;
-        font-size: 20px;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        background-color: red;
-        width: 250px;
-        height: 50px;
+    .advertise-container {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
-        text-align: center;
-        margin-top: 40px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0.5, 0.5);
+        gap: 30px;
+        padding: 40px;
     }
 
-    #Shop:hover {
-        background-color: rgb(232, 123, 123);
+    /* LEFT */
+    .ad-info {
+        width: 45%;
+    }
+
+    .ad-info h2 {
+        margin-bottom: 10px;
+    }
+
+    .ad-info ul {
+        padding-left: 18px;
+    }
+
+    .price {
+        font-size: 22px;
+        font-weight: bold;
+        color: #ee4d2d;
+    }
+
+    /* RIGHT */
+    .ad-form {
+        width: 45%;
+        background: #f9f9f9;
+        padding: 25px;
+        border-radius: 10px;
+    }
+
+    .ad-form label {
+        display: block;
+        margin-top: 12px;
+    }
+
+    .ad-form input,
+    .ad-form select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 4px;
+    }
+
+    .ad-form button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background: #ee4d2d;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    /* MODAL */
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        background: white;
+        width: 320px;
+        padding: 20px;
+        margin: 120px auto;
+        border-radius: 10px;
+    }
+
+    .modal-content input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    .cancel {
+        background: #ccc;
+        color: black;
     }
 </style>
 
@@ -293,56 +320,87 @@
             <h1 id="title">IIUM MARKETPLACE WEBSITE</h1>
         </nav>
     </header>
-    <main>
-        <div id="center">
-            <center>
-                <h1 style="color: rgb(88, 136, 39);font-family: 'Salsa', cursive;font-size: 50px; ">IIUM MARKETPLACE
-                    WEBSITE</h1>
-                <p style="font-size: 30px; font-family: 'Times New Roman', Times, serif;">Marketplace for all IIUM
-                    students</p>
-                <p style="font-size: 30px; color: rgb(230, 160, 47); margin-top: -50px;">
-                    ________________________________</p>
-            </center>
+
+    <div class="advertise-container">
+
+        <!-- LEFT: INFO -->
+        <div class="ad-info">
+            <h2>Advertise on IIUM Marketplace</h2>
+            <p>
+                Promote your products, food, or services to IIUM students and staff
+                using banner advertisements.
+            </p>
+
+            <h3>📢 Banner Advertisement</h3>
+            <ul>
+                <li>Displayed on Product Browsing page</li>
+                <li>Placed below the navbar</li>
+                <li>High visibility to all users</li>
+            </ul>
+
+            <h3>💰 Pricing</h3>
+            <p class="price">RM20 / week</p>
+
+            <h3>📌 Guidelines</h3>
+            <ul>
+                <li>Only IIUM-related ads allowed</li>
+                <li>No offensive or external content</li>
+                <li>Image size: 1200 × 300 px</li>
+            </ul>
         </div>
 
-        <div class="items">
-            <img src="images/Shirt.jpeg" id="first-product">
-            <img src="images/Phone.jpeg" id="second-product">
-            <img src="images/Shoe.jpeg" id="third-product">
+        <!-- RIGHT: FORM -->
+        <div class="ad-form">
+            <h3>Submit Your Advertisement</h3>
+
+            <label>Advertisement Title</label>
+            <input type="text" placeholder="e.g. Burger Promo">
+
+            <label>Banner Image</label>
+            <input type="file">
+
+            <label>Destination Link</label>
+            <input type="text" placeholder="e.g. Product page or contact">
+
+            <label>Duration</label>
+            <select>
+                <option>1 Week - RM20</option>
+                <option>2 Weeks - RM40</option>
+            </select>
+
+            <button onclick="openPayment()">Proceed to Payment</button>
         </div>
-        <div>
-            <a id="Shop" href="ProductBrowsing.html">&#x1F6D2; Browse Product</a>
+
+    </div>
+
+    <!-- PAYMENT MODAL -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h2>Advertisement Payment</h2>
+            <p>Amount: <strong>RM20</strong></p>
+
+            <input type="text" placeholder="Card Number">
+            <input type="text" placeholder="Expiry Date">
+            <input type="text" placeholder="CVV">
+
+            <button onclick="confirmPayment()">Pay</button>
+            <button class="cancel" onclick="closePayment()">Cancel</button>
         </div>
-    </main>
+    </div>
+
     <script>
-        function toggleNavbar() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "navbar") {
-                x.className += " responsive";
-            } else {
-                x.className = "navbar";
-            }
-        }
-        const products = [
-            "Laptop", "Shirt", "Phone", "Chocojar", "Iphone 13", "Jacket", "Microphone", "Clothes", "Electronics", "Food", "Services"
-        ];
-
-        function populateSuggestions() {
-            const suggestions = document.getElementById('suggestions');
-            products.forEach(product => {
-                const option = document.createElement('option');
-                option.value = product;
-                suggestions.appendChild(option);
-            });
+        function openPayment() {
+            document.getElementById("paymentModal").style.display = "block";
         }
 
-        document.addEventListener('DOMContentLoaded', populateSuggestions);
-        $(document).ready(function () {
+        function closePayment() {
+            document.getElementById("paymentModal").style.display = "none";
+        }
 
-            $("#search-bar").autocomplete({
-                source: products
-            });
-        });
+        function confirmPayment() {
+            document.getElementById("paymentModal").style.display = "none";
+            alert("Payment successful! Your advertisement will be reviewed.");
+        }
     </script>
+
 </body>
-</html>
